@@ -229,6 +229,7 @@
 
     alertmanager: {
       replicas: 1,
+      gossip_port: 9094,
     },
 
     overrides: {
