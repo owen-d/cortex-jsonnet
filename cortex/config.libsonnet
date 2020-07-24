@@ -227,6 +227,10 @@
         },
       }[$._config.ruler_client_type],
 
+    alertmanager: {
+      replicas: 1,
+    },
+
     overrides: {
       // === Per-tenant usage limits. ===
       //
