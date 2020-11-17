@@ -2,7 +2,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
 
 (import 'dashboard-utils.libsonnet') {
 
-  configAPIPaths: 'api_prom_rules.*|api_prom_api_v1_(rules|alerts)',
+  rulerConfigAPIPaths: ['api_prom_rules.*', 'api_prom_api_v1_(rules|alerts)'],
 
   rulerQueries+:: {
     ruleEvaluations: {
@@ -109,7 +109,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Configuration API (gateway)')
       .addPanel(
         $.panel('QPS') +
-        $.qpsPanel('cortex_request_duration_seconds_count{%s, route=~"%s"}' % [$.configAPIPaths, $.jobMatcher($._config.job_names.gateway)])
+        $.qpsPanel('cortex_request_duration_seconds_count{%s, route=~"%s"}' % [std.join('|', $.rulerConfigAPIPaths), $.jobMatcher($._config.job_names.gateway)])
       )
       .addPanel(
         $.panel('Latency') +
